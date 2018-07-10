@@ -35,6 +35,7 @@ public class HomeActivity extends AppCompatActivity {
     private Button createBtn;
     private Button refreshBtn;
     private Button logout;
+    private Button timeline;
     private ImageView ivImage;
     private Bitmap image;
     private String path;
@@ -55,6 +56,15 @@ public class HomeActivity extends AppCompatActivity {
         refreshBtn = findViewById(R.id.btnRefresh);
         logout = findViewById(R.id.btnLogout);
         ivImage = findViewById(R.id.ivImagePreview);
+        timeline = findViewById(R.id.btnTimeline);
+
+        timeline.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
+                startActivity(intent);
+            }
+        });
 
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
