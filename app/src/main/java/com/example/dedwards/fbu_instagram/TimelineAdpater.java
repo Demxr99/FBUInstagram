@@ -13,10 +13,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
 
-import java.util.Date;
 import java.util.List;
 
 public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHolder>{
@@ -43,6 +43,7 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
+        ParseUser user = ParseUser.getCurrentUser();
         Post post = mPosts.get(i);
         ParseFile image = post.getImage();
         String url = image.getUrl().toString();
@@ -52,8 +53,17 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
                 .into(viewHolder.ivImage);
 
         viewHolder.tvUsername.setText(post.getUser().getUsername());
-        Date test = post.getCreated(); // TODO - test is null
-//        viewHolder.tvCreatedAt.setText(post.getCreated().toString());
+
+        if (user.get("profileImage") != null){
+            ParseFile profileImage = (ParseFile) user.get("profileImage");
+            String profileUrl = profileImage.getUrl().toString();
+
+            Glide.with(context)
+                    .load(profileUrl)
+                    .into(viewHolder.ivProfileImage);
+        }
+
+        viewHolder.tvCreatedAt.setText(post.getCreatedAt().toString());
     }
 
     @Override
@@ -84,9 +94,19 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
             ivSave = itemView.findViewById(R.id.ivSave);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
+
+            ivProfileImage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+//                    Intent intent = new Intent(context, ProfileActivity.class);
+//                    context.startActivity(intent);
+                }
+            });
+
             // adds onClick listener to view holder
             itemView.setOnClickListener(this);
         }
+
 
         @Override
         public void onClick(View view) {

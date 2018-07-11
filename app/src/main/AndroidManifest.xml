@@ -39,12 +39,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".HomeActivity" />
         <activity android:name=".SignUpActivity" />
         <activity android:name=".TimelineActivity" />
         <activity android:name=".DetailsActivity" />
         <activity android:name=".NewHomeActivity" />
-        <activity android:name=".NewPhotoActivity"></activity>
+        <activity android:name=".NewPhotoActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

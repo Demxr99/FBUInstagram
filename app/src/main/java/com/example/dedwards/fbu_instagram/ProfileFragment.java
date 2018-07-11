@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 public class ProfileFragment extends Fragment {
@@ -37,6 +39,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        ParseUser user = ParseUser.getCurrentUser();
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         logout = view.findViewById(R.id.btnLogout);
         logout.setOnClickListener(new View.OnClickListener() {
@@ -48,11 +51,24 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
         ivProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), NewPhotoActivity.class);
+                intent.putExtra("first", true);
+                startActivity(intent);
             }
         });
+
+        ParseFile image = (ParseFile) user.get("profileImage");
+
+        if (user.get("profileImage") != null){
+            String url = image.getUrl().toString();
+
+            Glide.with(getActivity())
+                    .load(url)
+                    .into(ivProfileImage);
+        }
     }
 }

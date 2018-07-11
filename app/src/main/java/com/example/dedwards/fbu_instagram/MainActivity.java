@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (user != null){
                     Log.d("Login Activity", "Login successful");
-                    final Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    final Intent intent = new Intent(MainActivity.this, NewHomeActivity.class);
                     startActivity(intent);
                     finish();
                 } else{

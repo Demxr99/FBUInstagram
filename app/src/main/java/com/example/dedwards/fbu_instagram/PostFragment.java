@@ -1,5 +1,6 @@
 package com.example.dedwards.fbu_instagram;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -82,8 +83,8 @@ public class PostFragment extends Fragment {
                         if (e == null){
                             Log.d("HomeActivity", "ParseFile has been saved");
                             createPosts(description, parseFile, user);
-//                            Intent intent = new Intent(getActivity(), NewHomeActivity.class);
-//                            startActivity(intent);
+                            Intent intent = new Intent(getActivity(), NewHomeActivity.class);
+                            startActivity(intent);
                         } else{
                             e.printStackTrace();
                         }

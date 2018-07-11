@@ -44,7 +44,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         tvUsername.setText(post.getUser().getUsername());
         tvDescription.setText(post.getDescription());
-        tvCreated.setText(post.getCreated().toString());
+        tvCreated.setText(post.getCreatedAt().toString());
 
         ParseFile image = post.getImage();
         String url = image.getUrl().toString();
