@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText usernameInput;
     private EditText passwordInput;
-    private Button btnLogin;
+    private TextView btnLogin;
     private TextView tvSignUp;
 
     @Override
@@ -28,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         usernameInput = findViewById(R.id.etUsername);
         passwordInput = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
+        btnLogin = findViewById(R.id.tvLogin);
         tvSignUp = findViewById(R.id.tvSignUp);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {

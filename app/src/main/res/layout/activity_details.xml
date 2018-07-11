@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".DetailsActivity">
 
+    <TextView
+        android:id="@+id/tvCreatedAt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/ivLike"
+        android:layout_marginBottom="66dp"
+        android:text="TextView"
+        android:textAppearance="@android:style/TextAppearance.Small" />
+
     <ImageView
         android:id="@+id/ivProfileImage"
         android:layout_width="45dp"
@@ -96,6 +106,7 @@
         android:layout_alignStart="@+id/ivLike"
         android:layout_below="@+id/tvLikes"
         android:layout_marginTop="8dp"
+        android:textColor="@color/black"
         android:text="TextView" />
 
 </RelativeLayout>

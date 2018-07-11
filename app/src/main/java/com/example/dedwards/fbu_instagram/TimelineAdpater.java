@@ -49,6 +49,10 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
         Glide.with(context)
                 .load(url)
                 .into(viewHolder.ivImage);
+
+        viewHolder.tvUsername.setText(post.getUser().getUsername());
+        String test = post.getCreated(); // TODO - test is null
+        viewHolder.tvCreatedAt.setText(post.getCreated());
     }
 
     @Override
@@ -66,6 +70,7 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
         ImageView ivDirect;
         ImageView ivSave;
         TextView tvUsername;
+        TextView tvCreatedAt;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -77,6 +82,7 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
             ivDirect = itemView.findViewById(R.id.ivDirect);
             ivSave = itemView.findViewById(R.id.ivSave);
             tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             // adds onClick listener to view holder
             itemView.setOnClickListener(this);
         }

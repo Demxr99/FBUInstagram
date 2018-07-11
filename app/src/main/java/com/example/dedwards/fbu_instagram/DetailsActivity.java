@@ -22,6 +22,7 @@ public class DetailsActivity extends AppCompatActivity {
     ImageView ivSave;
     TextView tvUsername;
     TextView tvDescription;
+    TextView tvCreated;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +38,13 @@ public class DetailsActivity extends AppCompatActivity {
         ivSave = findViewById(R.id.ivSave);
         tvUsername = findViewById(R.id.tvUsername);
         tvDescription = findViewById(R.id.tvDescription);
+        tvCreated = findViewById(R.id.tvCreatedAt);
 
         Post post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
 
         tvUsername.setText(post.getUser().getUsername());
         tvDescription.setText(post.getDescription());
+        tvCreated.setText(post.getCreated());
 
         ParseFile image = post.getImage();
         String url = image.getUrl().toString();
