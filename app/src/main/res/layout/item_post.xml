@@ -21,6 +21,7 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/ivProfileImage"
         android:text="TextView"
+        android:textStyle="bold"
         android:textAppearance="@android:style/TextAppearance.Medium" />
 
     <ImageView

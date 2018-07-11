@@ -5,11 +5,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -61,7 +58,7 @@ public class HomeActivity extends AppCompatActivity {
         timeline.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(HomeActivity.this, TimelineActivity.class);
+                Intent intent = new Intent(HomeActivity.this, NewHomeActivity.class);
                 startActivity(intent);
             }
         });
@@ -69,39 +66,41 @@ public class HomeActivity extends AppCompatActivity {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final String description = descriptionInput.getText().toString();
-                final ParseUser user = ParseUser.getCurrentUser();
-
-                // create Intent to take a picture and return control to the calling application
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // Create a File reference to access to future access
-                photoFile = getPhotoFileUri(photoFileName);
-
-                // wrap File object into a content provider
-                // required for API >= 24
-                // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-                Uri fileProvider = FileProvider.getUriForFile(HomeActivity.this, "com.codepath.fileprovider", photoFile);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-                // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-                // So as long as the result is not null, it's safe to use the intent.
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    // Start the image capture intent to take photo
-                    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-                }
-
-                final ParseFile parseFile = new ParseFile(photoFile);
-                parseFile.saveInBackground(new SaveCallback() {
-                    @Override
-                    public void done(ParseException e) {
-                        if (e == null){
-                            Log.d("HomeActivity", "ParseFile has been saved");
-                            createPosts(description, parseFile, user);
-                        } else{
-                            e.printStackTrace();
-                        }
-                    }
-                });
+                Intent intent = new Intent(HomeActivity.this, NewHomeActivity.class);
+                startActivity(intent);
+//                final String description = descriptionInput.getText().toString();
+//                final ParseUser user = ParseUser.getCurrentUser();
+//
+//                // create Intent to take a picture and return control to the calling application
+//                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                // Create a File reference to access to future access
+//                photoFile = getPhotoFileUri(photoFileName);
+//
+//                // wrap File object into a content provider
+//                // required for API >= 24
+//                // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
+//                Uri fileProvider = FileProvider.getUriForFile(HomeActivity.this, "com.codepath.fileprovider", photoFile);
+//                intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
+//
+//                // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+//                // So as long as the result is not null, it's safe to use the intent.
+//                if (intent.resolveActivity(getPackageManager()) != null) {
+//                    // Start the image capture intent to take photo
+//                    startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//                }
+//
+//                final ParseFile parseFile = new ParseFile(photoFile);
+//                parseFile.saveInBackground(new SaveCallback() {
+//                    @Override
+//                    public void done(ParseException e) {
+//                        if (e == null){
+//                            Log.d("HomeActivity", "ParseFile has been saved");
+//                            createPosts(description, parseFile, user);
+//                        } else{
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
             }
         });
 

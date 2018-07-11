@@ -17,6 +17,7 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etUsername;
     private EditText etPassword;
+    private EditText etHandle;
     private Button btnSignup;
 
     @Override
@@ -27,6 +28,7 @@ public class SignUpActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
+        etHandle = findViewById(R.id.etHandle);
         btnSignup = findViewById(R.id.btnSignUp);
 
         btnSignup.setOnClickListener(new View.OnClickListener() {
@@ -35,13 +37,13 @@ public class SignUpActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 String email = etEmail.getText().toString();
-
-                signUp(username, password, email);
+                String handle = etHandle.getText().toString();
+                signUp(username, password, email, handle);
             }
         });
     }
 
-    private void signUp(String username, String password, String email){
+    private void signUp(String username, String password, String email, String handle){
         // Create the ParseUser
         ParseUser user = new ParseUser();
         // Set core properties
@@ -49,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity {
         user.setPassword(password);
         user.setEmail(email);
         // Set custom properties
-//        user.put("phone", "650-253-0000");
+        user.put("handle", handle);
         // Invoke signUpInBackground
         user.signUpInBackground(new SignUpCallback() {
             public void done(ParseException e) {

@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         ParseUser currentUser = ParseUser.getCurrentUser();
         if (currentUser != null) {
-            final Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+            final Intent intent = new Intent(MainActivity.this, NewHomeActivity.class);
             startActivity(intent);
             finish();
         } else {

@@ -16,6 +16,7 @@ import com.parse.ParseFile;
 
 import org.parceler.Parcels;
 
+import java.util.Date;
 import java.util.List;
 
 public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHolder>{
@@ -51,8 +52,8 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
                 .into(viewHolder.ivImage);
 
         viewHolder.tvUsername.setText(post.getUser().getUsername());
-        String test = post.getCreated(); // TODO - test is null
-        viewHolder.tvCreatedAt.setText(post.getCreated());
+        Date test = post.getCreated(); // TODO - test is null
+//        viewHolder.tvCreatedAt.setText(post.getCreated().toString());
     }
 
     @Override
