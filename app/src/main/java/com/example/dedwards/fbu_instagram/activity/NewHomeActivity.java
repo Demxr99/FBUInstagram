@@ -12,16 +12,19 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.fragment.PhotoFragment;
 import com.example.dedwards.fbu_instagram.fragment.PostFragment;
 import com.example.dedwards.fbu_instagram.fragment.ProfileFragment;
-import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.fragment.TimelineFragment;
 
 import java.io.File;
@@ -42,6 +45,8 @@ public class NewHomeActivity extends AppCompatActivity implements PhotoFragment.
     Boolean change_fragment;
     FragmentTransaction fragmentTransaction;
     BottomNavigationView bottomNavigationView;
+    // Instance of the progress action-view
+    MenuItem miActionProgressItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +86,33 @@ public class NewHomeActivity extends AppCompatActivity implements PhotoFragment.
                     }
                 });
         change_fragment = false;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_activity_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // Store instance of the menu item containing progress
+        miActionProgressItem = menu.findItem(R.id.miActionProgress);
+        // Extract the action-view from the menu item
+        ProgressBar v =  (ProgressBar) MenuItemCompat.getActionView(miActionProgressItem);
+        // Return to finish
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    public void showProgressBar() {
+        // Show progress item
+        miActionProgressItem.setVisible(true);
+    }
+
+    public void hideProgressBar() {
+        // Hide progress item
+        miActionProgressItem.setVisible(false);
     }
 
     @Override

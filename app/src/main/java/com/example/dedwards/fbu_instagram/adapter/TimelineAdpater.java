@@ -203,6 +203,7 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
                                     }
                                 } else {
                                     Log.d("item", "Error: " + e.getMessage());
+
                                 }
                             }
                         });

@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.activity.MainActivity;
+import com.example.dedwards.fbu_instagram.activity.NewHomeActivity;
 import com.example.dedwards.fbu_instagram.activity.NewPhotoActivity;
 import com.example.dedwards.fbu_instagram.adapter.ImageAdapter;
 import com.example.dedwards.fbu_instagram.model.Post;
@@ -55,6 +56,8 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        ((NewHomeActivity)getActivity()).showProgressBar();
 
         posts = new ArrayList<>();
         adapter = new ImageAdapter(posts);
@@ -110,6 +113,7 @@ public class ProfileFragment extends Fragment {
                 if (e == null) {
                     // Access the array of results here
                     adapter.addAll(itemList);
+                    ((NewHomeActivity)getActivity()).hideProgressBar();
                 } else {
                     Log.d("item", "Error: " + e.getMessage());
                 }

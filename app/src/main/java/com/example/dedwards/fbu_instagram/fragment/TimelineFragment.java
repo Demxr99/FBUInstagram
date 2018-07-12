@@ -12,9 +12,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.example.dedwards.fbu_instagram.R;
+import com.example.dedwards.fbu_instagram.activity.NewHomeActivity;
 import com.example.dedwards.fbu_instagram.adapter.TimelineAdpater;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.FindCallback;
@@ -46,6 +46,7 @@ public class TimelineFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        ((NewHomeActivity)getActivity()).showProgressBar();
         // initialize the list of movies
         posts = new ArrayList<>();
         // initialize the adapter
@@ -100,7 +101,7 @@ public class TimelineFragment extends Fragment {
                 if (e == null) {
                     // Access the array of results here
                     adapter.addAll(itemList);
-                    Toast.makeText(getActivity(), "Added posts to timeline", Toast.LENGTH_SHORT).show();
+                    ((NewHomeActivity)getActivity()).hideProgressBar();
                 } else {
                     Log.d("item", "Error: " + e.getMessage());
                 }
