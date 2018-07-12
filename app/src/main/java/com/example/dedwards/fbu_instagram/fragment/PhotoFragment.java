@@ -1,4 +1,4 @@
-package com.example.dedwards.fbu_instagram;
+package com.example.dedwards.fbu_instagram.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.dedwards.fbu_instagram.R;
 
 public class PhotoFragment extends Fragment {
 

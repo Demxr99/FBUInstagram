@@ -1,4 +1,4 @@
-package com.example.dedwards.fbu_instagram;
+package com.example.dedwards.fbu_instagram.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.dedwards.fbu_instagram.R;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;

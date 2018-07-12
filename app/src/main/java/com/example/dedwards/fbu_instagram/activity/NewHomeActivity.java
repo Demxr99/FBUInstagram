@@ -1,4 +1,4 @@
-package com.example.dedwards.fbu_instagram;
+package com.example.dedwards.fbu_instagram.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,9 +18,15 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.dedwards.fbu_instagram.fragment.PhotoFragment;
+import com.example.dedwards.fbu_instagram.fragment.PostFragment;
+import com.example.dedwards.fbu_instagram.fragment.ProfileFragment;
+import com.example.dedwards.fbu_instagram.R;
+import com.example.dedwards.fbu_instagram.fragment.TimelineFragment;
+
 import java.io.File;
 
-public class NewHomeActivity extends AppCompatActivity implements  PhotoFragment.OnItemSelectedListener{
+public class NewHomeActivity extends AppCompatActivity implements PhotoFragment.OnItemSelectedListener {
 
     public final String APP_TAG = "MyCustomApp";
     public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;

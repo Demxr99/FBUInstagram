@@ -1,4 +1,4 @@
-package com.example.dedwards.fbu_instagram;
+package com.example.dedwards.fbu_instagram.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,9 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dedwards.fbu_instagram.activity.DetailsActivity;
+import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -19,14 +20,14 @@ import org.parceler.Parcels;
 
 import java.util.List;
 
-public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHolder>{
+public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ViewHolder>{
 
     // list of all posts
     private List<Post> mPosts;
     Context context;
 
     // pass in Tweets array in the constructor
-    public TimelineAdpater(List<Post> posts){
+    public ImageAdapter(List<Post> posts){
         mPosts = posts;
     }
 
@@ -36,7 +37,7 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
         context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         // inflate layout
-        View postView = inflater.inflate(R.layout.item_post, viewGroup, false);
+        View postView = inflater.inflate(R.layout.item_image, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(postView);
         return viewHolder;
     }
@@ -51,19 +52,6 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
         Glide.with(context)
                 .load(url)
                 .into(viewHolder.ivImage);
-
-        viewHolder.tvUsername.setText(post.getUser().getUsername());
-
-        if (user.get("profileImage") != null){
-            ParseFile profileImage = (ParseFile) user.get("profileImage");
-            String profileUrl = profileImage.getUrl().toString();
-
-            Glide.with(context)
-                    .load(profileUrl)
-                    .into(viewHolder.ivProfileImage);
-        }
-
-        viewHolder.tvCreatedAt.setText(post.getCreatedAt().toString());
     }
 
     @Override
@@ -74,34 +62,12 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
     // create viewholder class
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         // declare view objects
-        ImageView ivProfileImage;
         ImageView ivImage;
-        ImageView ivLike;
-        ImageView ivComment;
-        ImageView ivDirect;
-        ImageView ivSave;
-        TextView tvUsername;
-        TextView tvCreatedAt;
 
         public ViewHolder(View itemView) {
             super(itemView);
             // lookup view objects by their id
-            ivProfileImage = itemView.findViewById(R.id.ivProfileImage);
             ivImage = itemView.findViewById(R.id.ivImage);
-            ivLike = itemView.findViewById(R.id.ivLike);
-            ivComment = itemView.findViewById(R.id.ivComment);
-            ivDirect = itemView.findViewById(R.id.ivDirect);
-            ivSave = itemView.findViewById(R.id.ivSave);
-            tvUsername = itemView.findViewById(R.id.tvUsername);
-            tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
-
-            ivProfileImage.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-//                    Intent intent = new Intent(context, ProfileActivity.class);
-//                    context.startActivity(intent);
-                }
-            });
 
             // adds onClick listener to view holder
             itemView.setOnClickListener(this);
@@ -136,3 +102,4 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
         notifyDataSetChanged();
     }
 }
+

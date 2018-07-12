@@ -1,4 +1,4 @@
-package com.example.dedwards.fbu_instagram;
+package com.example.dedwards.fbu_instagram.fragment;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -17,6 +17,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.example.dedwards.fbu_instagram.R;
+import com.example.dedwards.fbu_instagram.activity.NewHomeActivity;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.ParseException;
 import com.parse.ParseFile;

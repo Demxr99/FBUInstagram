@@ -6,12 +6,15 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
+
 @ParseClassName("Post")
 public class Post extends ParseObject {
     private static final String KEY_DESCRIPTION = "description";
     private static final String KEY_IMAGE = "image";
     private static final String KEY_USER = "user";
-    private static final String KEY_CREATED = "createdAt";
+    private static final String KEY_COMMENT = "comments";
+    private static final String KEY_LIKE = "likes";
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -33,9 +36,15 @@ public class Post extends ParseObject {
         return getParseUser(KEY_USER);
     }
 
-    public void setUser(ParseUser user){
-        put(KEY_USER, user);
-    }
+    public void setUser(ParseUser user){ put(KEY_USER, user); }
+
+    public ArrayList<ParseComment> getComments(){ return (ArrayList) getList(KEY_COMMENT); }
+
+    public void setComments(ArrayList<ParseComment> comments){ put(KEY_COMMENT, comments);}
+
+    public ArrayList<Like> getLikes(){ return (ArrayList) getList(KEY_LIKE); }
+
+    public void setLikes(ArrayList<Like> likes) { put(KEY_LIKE, likes); }
 
     public static class Query extends ParseQuery<Post>{
         public Query() {

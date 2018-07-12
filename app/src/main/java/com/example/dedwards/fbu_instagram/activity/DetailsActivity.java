@@ -1,15 +1,22 @@
-package com.example.dedwards.fbu_instagram;
+package com.example.dedwards.fbu_instagram.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.ParseFile;
+import com.parse.ParseUser;
 
 import org.parceler.Parcels;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -41,10 +48,11 @@ public class DetailsActivity extends AppCompatActivity {
         tvCreated = findViewById(R.id.tvCreatedAt);
 
         Post post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
+        ParseUser user = post.getUser();
 
         tvUsername.setText(post.getUser().getUsername());
         tvDescription.setText(post.getDescription());
-        tvCreated.setText(post.getCreatedAt().toString());
+        tvCreated.setText(getRelativeTimeAgo(post.getCreatedAt().toString()));
 
         ParseFile image = post.getImage();
         String url = image.getUrl().toString();
@@ -52,5 +60,33 @@ public class DetailsActivity extends AppCompatActivity {
         Glide.with(DetailsActivity.this)
                 .load(url)
                 .into(ivImage);
+
+        ParseFile profileImage = (ParseFile) user.get("profileImage");
+
+        if (user.get("profileImage") != null){
+            String profileUrl = profileImage.getUrl().toString();
+
+            Glide.with(this)
+                    .load(profileUrl)
+                    .into(ivProfileImage);
+        }
+    }
+
+    // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
+    public String getRelativeTimeAgo(String rawJsonDate) {
+        String twitterFormat = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
+        SimpleDateFormat sf = new SimpleDateFormat(twitterFormat, Locale.ENGLISH);
+        sf.setLenient(true);
+
+        String relativeDate = "";
+        try {
+            long dateMillis = sf.parse(rawJsonDate).getTime();
+            relativeDate = DateUtils.getRelativeTimeSpanString(dateMillis,
+                    System.currentTimeMillis(), DateUtils.SECOND_IN_MILLIS).toString();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return relativeDate;
     }
 }

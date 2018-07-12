@@ -1,10 +1,13 @@
-package com.example.dedwards.fbu_instagram;
+package com.example.dedwards.fbu_instagram.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,13 +15,26 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.dedwards.fbu_instagram.R;
+import com.example.dedwards.fbu_instagram.activity.MainActivity;
+import com.example.dedwards.fbu_instagram.activity.NewPhotoActivity;
+import com.example.dedwards.fbu_instagram.adapter.ImageAdapter;
+import com.example.dedwards.fbu_instagram.model.Post;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProfileFragment extends Fragment {
 
     Button logout;
     ImageView ivProfileImage;
+    RecyclerView rvPosts;
+    ArrayList<Post> posts;
+    ImageAdapter adapter;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -39,6 +55,15 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        posts = new ArrayList<>();
+        adapter = new ImageAdapter(posts);
+
+        rvPosts = view.findViewById(R.id.rvImages);
+
+        rvPosts.setAdapter(adapter);
+        rvPosts.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+
         ParseUser user = ParseUser.getCurrentUser();
         ivProfileImage = view.findViewById(R.id.ivProfileImage);
         logout = view.findViewById(R.id.btnLogout);
@@ -70,5 +95,25 @@ public class ProfileFragment extends Fragment {
                     .load(url)
                     .into(ivProfileImage);
         }
+        populateTimeline();
+    }
+
+    public void populateTimeline(){
+        // create new query to parse
+        final Post.Query postsQuery = new Post.Query();
+        postsQuery.getTop().withUser();
+        // Define our query conditions
+        postsQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        // Execute the find asynchronously
+        postsQuery.findInBackground(new FindCallback<Post>() {
+            public void done(List<Post> itemList, ParseException e) {
+                if (e == null) {
+                    // Access the array of results here
+                    adapter.addAll(itemList);
+                } else {
+                    Log.d("item", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 }

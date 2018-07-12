@@ -1,4 +1,4 @@
-package com.example.dedwards.fbu_instagram;
+package com.example.dedwards.fbu_instagram.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,10 +14,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.dedwards.fbu_instagram.R;
+import com.example.dedwards.fbu_instagram.adapter.TimelineAdpater;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -66,32 +67,6 @@ public class TimelineFragment extends Fragment {
             }
         });
 
-//        // normally this data should be encapsulated in ViewModels, but shown here for simplicity
-//        LiveData<PagedList<Post>> posts;
-//
-//        public void onCreate(Bundle savedInstanceState) {
-//
-//            PagedList.Config pagedListConfig =
-//                    new PagedList.Config.Builder().setEnablePlaceholders(true)
-//                            .setPrefetchDistance(10)
-//                            .setInitialLoadSizeHint(10)
-//                            .setPageSize(10).build();
-//
-//            // initial page size to fetch can also be configured here too
-//            PagedList.Config config = new PagedList.Config.Builder().setPageSize(20).build();
-//
-//            ParseDataSourceFactory sourceFactory = new ParseDataSourceFactory();
-//
-//            posts = new LivePagedListBuilder(factory, config).build();
-//
-//            posts.observe(this, new Observer<PagedList<Post>>() {
-//                @Override
-//                public void onChanged(@Nullable PagedList<Post> tweets) {
-//                    postAdapter.submitList(tweets);
-//                }
-//            });
-//        }
-
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
         // Setup refresh listener which triggers new data loading
@@ -118,7 +93,7 @@ public class TimelineFragment extends Fragment {
         postsQuery.orderByDescending("createdAt");
         postsQuery.getTop().withUser();
         // Define our query conditions
-        postsQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+//        postsQuery.whereEqualTo("user", ParseUser.getCurrentUser());
         // Execute the find asynchronously
         postsQuery.findInBackground(new FindCallback<Post>() {
             public void done(List<Post> itemList, ParseException e) {

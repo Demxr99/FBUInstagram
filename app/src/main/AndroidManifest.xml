@@ -32,19 +32,19 @@
                 android:resource="@xml/fileprovider" />
         </provider>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".TimelineActivity" />
-        <activity android:name=".DetailsActivity" />
-        <activity android:name=".NewHomeActivity" />
-        <activity android:name=".NewPhotoActivity" />
-        <activity android:name=".ProfileActivity"></activity>
+        <activity android:name=".activity.SignUpActivity" />
+        <activity android:name=".activity.DetailsActivity" />
+        <activity android:name=".activity.NewHomeActivity" />
+        <activity android:name=".activity.NewPhotoActivity" />
+        <activity android:name=".activity.ProfileActivity" />
+        <activity android:name=".activity.CommentActivity"></activity>
     </application>
 
 </manifest>

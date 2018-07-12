@@ -2,6 +2,8 @@ package com.example.dedwards.fbu_instagram;
 
 import android.app.Application;
 
+import com.example.dedwards.fbu_instagram.model.Like;
+import com.example.dedwards.fbu_instagram.model.ParseComment;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -26,6 +28,9 @@ public class ParseApplication extends Application {
         builder.networkInterceptors().add(httpLoggingInterceptor);
 
         ParseObject.registerSubclass(Post.class);
+        ParseObject.registerSubclass(ParseComment.class);
+        ParseObject.registerSubclass(Like.class);
+
         // set applicationId, and server server based on the values in the Heroku settings.
         // clientKey is not needed unless explicitly configured
         // any network interceptors must be added with the Configuration Builder given this syntax

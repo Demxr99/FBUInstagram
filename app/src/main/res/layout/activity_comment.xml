@@ -4,34 +4,33 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.PostFragment">
+    tools:context=".activity.CommentActivity">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ImageView
-        android:id="@+id/ivImage"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvComments"
         android:layout_width="match_parent"
-        android:layout_height="329dp"
+        android:layout_height="527dp"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="57dp"
-        android:src="@android:color/background_light" />
+        android:layout_alignParentTop="true" />
 
     <EditText
-        android:id="@+id/etDescription"
-        android:layout_width="match_parent"
+        android:id="@+id/etComment"
+        android:layout_width="344dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/ivImage"
+        android:layout_marginBottom="12dp"
         android:ems="10"
-        android:hint="Write a caption..."
+        android:hint="Add a comment"
         android:inputType="textPersonName" />
 
-    <Button
-        android:id="@+id/btnPost"
+    <TextView
+        android:id="@+id/tvPost"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/etComment"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="Share" />
+        android:layout_marginEnd="21dp"
+        android:text="Post" />
+
 </RelativeLayout>
