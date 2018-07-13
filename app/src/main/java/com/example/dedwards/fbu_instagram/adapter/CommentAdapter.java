@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.activity.ProfileActivity;
 import com.example.dedwards.fbu_instagram.model.ParseComment;
@@ -56,6 +57,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
 
         Glide.with(context)
                 .load(url)
+                .apply(RequestOptions.circleCropTransform())
                 .into(viewHolder.ivProfileImage);
     }
 

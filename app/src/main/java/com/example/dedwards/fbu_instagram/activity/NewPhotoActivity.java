@@ -66,11 +66,6 @@ public class NewPhotoActivity extends AppCompatActivity {
                             user.saveInBackground();
                             Intent intent = new Intent(NewPhotoActivity.this, NewHomeActivity.class);
                             startActivity(intent);
-//                            Fragment mFragment = null;
-//                            mFragment = new PhotoFragment();
-//                            FragmentManager fragmentManager = getSupportFragmentManager();
-//                            fragmentManager.beginTransaction()
-//                                    .replace(R.id.your_placeholder, mFragment).commit();
                         } else{
                             e.printStackTrace();
                         }

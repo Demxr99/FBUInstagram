@@ -62,6 +62,8 @@ public class NewHomeActivity extends AppCompatActivity implements PhotoFragment.
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
+        fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.your_placeholder, fragment1).commit();
         // handle navigation selection
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -183,5 +185,10 @@ public class NewHomeActivity extends AppCompatActivity implements PhotoFragment.
         File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
         photoFilePath = file.getPath();
         return file;
+    }
+
+    public void setNav(){
+        bottomNavigationView.getMenu().getItem(2).setChecked(true);
+        bottomNavigationView.getMenu().getItem(0).setChecked(false);
     }
 }

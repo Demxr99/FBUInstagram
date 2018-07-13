@@ -1,8 +1,12 @@
 package com.example.dedwards.fbu_instagram.activity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
+import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,14 +14,20 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.dedwards.fbu_instagram.GlideApp;
 import com.example.dedwards.fbu_instagram.R;
+import com.example.dedwards.fbu_instagram.fragment.ProfileFragment;
+import com.example.dedwards.fbu_instagram.model.Like;
 import com.example.dedwards.fbu_instagram.model.Post;
+import com.parse.FindCallback;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
 import org.parceler.Parcels;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -32,6 +42,9 @@ public class DetailsActivity extends AppCompatActivity {
     TextView tvUsername;
     TextView tvDescription;
     TextView tvCreated;
+    TextView tvLikeCount;
+
+    private ArrayList<Like> likes;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,8 +61,9 @@ public class DetailsActivity extends AppCompatActivity {
         tvUsername = findViewById(R.id.tvUsername);
         tvDescription = findViewById(R.id.tvDescription);
         tvCreated = findViewById(R.id.tvCreatedAt);
+        tvLikeCount = findViewById(R.id.tvLikeCount);
 
-        Post post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
+        final Post post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
         ParseUser user = post.getUser();
 
         tvUsername.setText(post.getUser().getUsername());
@@ -73,6 +87,114 @@ public class DetailsActivity extends AppCompatActivity {
                     .apply(RequestOptions.circleCropTransform())
                     .into(ivProfileImage);
         }
+
+        if (post.getLikes() == null){
+            tvLikeCount.setText("0");
+        } else{
+            tvLikeCount.setText(Integer.toString(post.getLikes().size()));
+        }
+
+        ivProfileImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (post.getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())) {
+                    ProfileFragment nextFrag = new ProfileFragment();
+
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.your_placeholder, nextFrag, "findThisFragment")
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    ParseUser user = post.getUser();
+                    Intent intent = new Intent(DetailsActivity.this, ProfileActivity.class);
+                    intent.putExtra(ParseUser.class.getSimpleName(), Parcels.wrap(user));
+                    startActivity(intent);
+                }
+            }
+        });
+
+        tvUsername.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (post.getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())) {
+                    ProfileFragment nextFrag = new ProfileFragment();
+
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.your_placeholder, nextFrag, "findThisFragment")
+                            .addToBackStack(null)
+                            .commit();
+                } else {
+                    ParseUser user = post.getUser();
+                    Intent intent = new Intent(DetailsActivity.this, ProfileActivity.class);
+                    intent.putExtra(ParseUser.class.getSimpleName(), Parcels.wrap(user));
+                    startActivity(intent);
+                }
+            }
+        });
+
+        ivComment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailsActivity.this, CommentActivity.class);
+                intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                startActivity(intent);
+            }
+        });
+
+        ivLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Boolean makeLike = true;
+                // create new query to parse
+                final Like.Query postsQuery = new Like.Query();
+                postsQuery.orderByDescending("createdAt");
+                postsQuery.getTop().withUser();
+                // Define our query conditions
+                postsQuery.whereEqualTo("post", post);
+                postsQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+                // Execute the find asynchronously
+                postsQuery.findInBackground(new FindCallback<Like>() {
+                    public void done(List<Like> itemList, com.parse.ParseException e) {
+                        if (e == null) {
+                            // Access the array of results here
+                            if (itemList.size() == 0){
+                                createLikes(ParseUser.getCurrentUser(), post);
+                            }
+                        } else {
+                            Log.d("item", "Error: " + e.getMessage());
+
+                        }
+                    }
+                });
+            }
+        });
+
+        // create new query to parse
+        final Like.Query postsQuery = new Like.Query();
+        postsQuery.orderByDescending("createdAt");
+        postsQuery.getTop().withUser();
+        // Define our query conditions
+        postsQuery.whereEqualTo("post", post);
+        postsQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        // Execute the find asynchronously
+        postsQuery.findInBackground(new FindCallback<Like>() {
+            public void done(List<Like> itemList, com.parse.ParseException e) {
+                if (e == null) {
+                    // Access the array of results here
+                    if (itemList.size() != 0){
+                        ivLike.setImageResource(R.mipmap.ufi_heart_active);
+                        int color = Color.parseColor("#f05656");
+                        ivLike.setColorFilter(color);
+                    } else{
+                        ivLike.setImageResource(R.mipmap.ufi_heart);
+                        int color = Color.parseColor("#000000"); //The color u want
+                        ivLike.setColorFilter(color);
+                    }
+                } else {
+                    Log.d("item", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 
     // getRelativeTimeAgo("Mon Apr 01 21:16:23 +0000 2014");
@@ -91,5 +213,44 @@ public class DetailsActivity extends AppCompatActivity {
         }
 
         return relativeDate;
+    }
+
+    private void createLikes(ParseUser user, final Post post){
+        final Like newLike = new Like();
+        newLike.setUser(user);
+        newLike.setPost(post);
+
+        newLike.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(com.parse.ParseException e) {
+                if (e == null){
+                    Log.d("TimelineActivity", "Like post success!");
+                    updatePost(newLike, post);
+                } else{
+                    Log.d("TimelineActivity", "Failed to like");
+                    e.printStackTrace();
+                }
+            }
+        });
+    }
+
+    private void updatePost(Like newLike, Post post){
+        likes = post.getLikes();
+        if (likes == null){
+            likes = new ArrayList<>();
+        }
+        likes.add(newLike);
+        post.setLikes(likes);
+        post.saveInBackground(new SaveCallback() {
+            @Override
+            public void done(com.parse.ParseException e) {
+                if (e == null) {
+                    Log.d("TimelineActivity", "Like has been added to post");
+                } else {
+                    Log.d("TimelineActivity", "Failed to add like to post");
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

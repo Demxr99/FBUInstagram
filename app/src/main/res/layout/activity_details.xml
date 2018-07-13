@@ -93,8 +93,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/tvLikeCount"
-        android:layout_toEndOf="@+id/tvLikeCount"
-        android:text="Likes"
+        android:layout_marginEnd="-71dp"
+        android:layout_toStartOf="@+id/tvUsername"
+        android:text="likes"
         android:textStyle="bold" />
 
     <TextView
@@ -103,8 +104,9 @@
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/ivLike"
         android:layout_below="@+id/ivLike"
-        android:textStyle="bold"
-        android:text="###" />
+        android:layout_marginRight="2dp"
+        android:text="##"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvDescription"

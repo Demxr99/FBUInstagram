@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.activity.CommentActivity;
 import com.example.dedwards.fbu_instagram.activity.DetailsActivity;
 import com.example.dedwards.fbu_instagram.activity.ProfileActivity;
+import com.example.dedwards.fbu_instagram.fragment.ProfileFragment;
 import com.example.dedwards.fbu_instagram.model.Like;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.FindCallback;
@@ -61,7 +63,7 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
     @Override
     public void onBindViewHolder(@NonNull final ViewHolder viewHolder, int i) {
         Post post = mPosts.get(i);
-        ParseUser user = post.getUser();
+        ParseUser userPost = post.getUser();
         ParseFile image = post.getImage();
         String url = image.getUrl().toString();
 
@@ -77,8 +79,8 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
             viewHolder.tvLikeCount.setText(Integer.toString(post.getLikes().size()));
         }
 
-        if (user.get("profileImage") != null){
-            ParseFile profileImage = (ParseFile) user.get("profileImage");
+        if (userPost.get("profileImage") != null){
+            ParseFile profileImage = (ParseFile) userPost.get("profileImage");
             String profileUrl = profileImage.getUrl().toString();
 
             GlideApp.with(context)
@@ -151,18 +153,48 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
             ivProfileImage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, ProfileActivity.class);
-                    // TODO send the user in the intent
-                    context.startActivity(intent);
+                    // gets position of item in ArrayList
+                    int position = getAdapterPosition();
+                    // get the post at position
+                    Post post = mPosts.get(position);
+
+                    if (post.getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+                        ProfileFragment nextFrag= new ProfileFragment();
+
+                        ((FragmentActivity)context).getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.your_placeholder, nextFrag,"findThisFragment")
+                                .addToBackStack(null)
+                                .commit();
+                    } else {
+                        ParseUser user = post.getUser();
+                        Intent intent = new Intent(context, ProfileActivity.class);
+                        intent.putExtra(ParseUser.class.getSimpleName(), Parcels.wrap(user));
+                        context.startActivity(intent);
+                    }
                 }
             });
 
             tvUsername.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context, ProfileActivity.class);
-                    // TODO send the user in the intent
-                    context.startActivity(intent);
+                    // gets position of item in ArrayList
+                    int position = getAdapterPosition();
+                    // get the post at position
+                    Post post = mPosts.get(position);
+
+                    if (post.getUser().getObjectId().equals(ParseUser.getCurrentUser().getObjectId())){
+                        ProfileFragment nextFrag= new ProfileFragment();
+
+                        ((FragmentActivity)context).getSupportFragmentManager().beginTransaction()
+                                .replace(R.id.your_placeholder, nextFrag,"findThisFragment")
+                                .addToBackStack(null)
+                                .commit();
+                    } else {
+                        ParseUser user = post.getUser();
+                        Intent intent = new Intent(context, ProfileActivity.class);
+                        intent.putExtra(ParseUser.class.getSimpleName(), Parcels.wrap(user));
+                        context.startActivity(intent);
+                    }
                 }
             });
 

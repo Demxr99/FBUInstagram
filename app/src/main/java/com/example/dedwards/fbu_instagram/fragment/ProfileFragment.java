@@ -67,6 +67,7 @@ public class ProfileFragment extends Fragment {
 
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new GridLayoutManager(getActivity(), 3));
+        rvPosts.setNestedScrollingEnabled(false);
 
         ParseUser user = ParseUser.getCurrentUser();
         ivProfileImage = view.findViewById(R.id.ivProfileImage);

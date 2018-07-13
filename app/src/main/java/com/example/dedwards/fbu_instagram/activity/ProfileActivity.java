@@ -24,6 +24,8 @@ import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +50,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         skip = 20;
 
-        user = ParseUser.getCurrentUser();
+        user = Parcels.unwrap(getIntent().getParcelableExtra(ParseUser.class.getSimpleName()));
 
         posts = new ArrayList<>();
         adapter = new ImageAdapter(posts);
@@ -134,7 +136,7 @@ public class ProfileActivity extends AppCompatActivity {
         final Post.Query postsQuery = new Post.Query();
         postsQuery.getTop().withUser();
         // Define our query conditions
-        postsQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        postsQuery.whereEqualTo("user", user);
         // Execute the find asynchronously
         postsQuery.findInBackground(new FindCallback<Post>() {
             public void done(List<Post> itemList, ParseException e) {
@@ -156,7 +158,7 @@ public class ProfileActivity extends AppCompatActivity {
         postsQuery.orderByDescending("createdAt");
         postsQuery.getTop().withUser();
         // Define our query conditions
-        postsQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        postsQuery.whereEqualTo("user", user);
         postsQuery.setSkip(skip);
         // Execute the find asynchronously
         postsQuery.findInBackground(new FindCallback<Post>() {

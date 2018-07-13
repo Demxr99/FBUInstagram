@@ -47,12 +47,12 @@ public class TimelineFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        ((NewHomeActivity)getActivity()).showProgressBar();
         skip = 20;
         // initialize the list of movies
         posts = new ArrayList<>();
         // initialize the adapter
         adapter = new TimelineAdpater(posts);
+
 
         // resolve the recycler view and connect a layout manager and movie adapter
         rvTimeline = view.findViewById(R.id.rvTimeline);
