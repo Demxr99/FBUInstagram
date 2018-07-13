@@ -8,7 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.dedwards.fbu_instagram.R;
 
@@ -17,7 +17,8 @@ public class PhotoFragment extends Fragment {
     // Define the listener of the interface type
     // listener will the activity instance containing fragment
     private OnItemSelectedListener listener;
-    private Button btnTakePhoto;
+    private ImageView ivTakePhoto;
+    private ImageView ivGallery;
 
     public PhotoFragment() {
         // Required empty public constructor
@@ -56,12 +57,24 @@ public class PhotoFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        btnTakePhoto = view.findViewById(R.id.btnTakePhoto);
-        btnTakePhoto.setOnClickListener(new View.OnClickListener() {
+        ivTakePhoto = view.findViewById(R.id.ivTakePhoto);
+        ivGallery = view.findViewById(R.id.ivGallery);
+        ivGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GalleryFragment nextFrag= new GalleryFragment();
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.your_placeholder, nextFrag,"findThisFragment")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+        ivTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 listener.onTakePhoto();
             }
         });
+
     }
 }

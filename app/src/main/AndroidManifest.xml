@@ -44,7 +44,7 @@
         <activity android:name=".activity.NewHomeActivity" />
         <activity android:name=".activity.NewPhotoActivity" />
         <activity android:name=".activity.ProfileActivity" />
-        <activity android:name=".activity.CommentActivity"></activity>
+        <activity android:name=".activity.CommentActivity" />
     </application>
 
 </manifest>

@@ -7,6 +7,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.dedwards.fbu_instagram.GlideApp;
 import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.model.Post;
 import com.parse.ParseFile;
@@ -66,8 +68,9 @@ public class DetailsActivity extends AppCompatActivity {
         if (user.get("profileImage") != null){
             String profileUrl = profileImage.getUrl().toString();
 
-            Glide.with(this)
+            GlideApp.with(this)
                     .load(profileUrl)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(ivProfileImage);
         }
     }

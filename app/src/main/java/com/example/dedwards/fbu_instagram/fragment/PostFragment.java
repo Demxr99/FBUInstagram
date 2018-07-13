@@ -37,6 +37,7 @@ public class PostFragment extends Fragment {
     Bitmap takenImage;
     File photoFile;
     ParseUser user;
+    String imagePath;
 
     public PostFragment() {
         // Required empty public constructor
@@ -55,9 +56,16 @@ public class PostFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         user = ParseUser.getCurrentUser();
-        photoFile = (File) getArguments().getSerializable(FILE);
-        takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
-        takenImage = rotateBitmapOrientation(photoFile.getPath());
+        imagePath = getArguments().getString("imagePath");
+        if (imagePath == null) {
+            photoFile = (File) getArguments().getSerializable(FILE);
+            takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+            takenImage = rotateBitmapOrientation(photoFile.getPath());
+        } else {
+            photoFile = new File(imagePath);
+            takenImage = BitmapFactory.decodeFile(photoFile.getAbsolutePath());
+            takenImage = rotateBitmapOrientation(photoFile.getPath());
+        }
     }
 
     @Override
@@ -72,8 +80,10 @@ public class PostFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         etDescription = view.findViewById(R.id.etDescription);
         ivImage = view.findViewById(R.id.ivImage);
-        ivImage.setImageBitmap(takenImage);
         btnPost = view.findViewById(R.id.btnPost);
+
+        ivImage.setImageBitmap(takenImage);
+
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

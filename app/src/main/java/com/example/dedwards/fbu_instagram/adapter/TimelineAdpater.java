@@ -2,6 +2,7 @@ package com.example.dedwards.fbu_instagram.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.example.dedwards.fbu_instagram.GlideApp;
 import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.activity.CommentActivity;
 import com.example.dedwards.fbu_instagram.activity.DetailsActivity;
@@ -78,8 +81,9 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
             ParseFile profileImage = (ParseFile) user.get("profileImage");
             String profileUrl = profileImage.getUrl().toString();
 
-            Glide.with(context)
+            GlideApp.with(context)
                     .load(profileUrl)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(viewHolder.ivProfileImage);
         }
 
@@ -99,8 +103,12 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
                     // Access the array of results here
                     if (itemList.size() != 0){
                         viewHolder.ivLike.setImageResource(R.mipmap.ufi_heart_active);
+                        int color = Color.parseColor("#f05656");
+                        viewHolder.ivLike.setColorFilter(color);
                     } else{
                         viewHolder.ivLike.setImageResource(R.mipmap.ufi_heart);
+                        int color = Color.parseColor("#000000"); //The color u want
+                        viewHolder.ivLike.setColorFilter(color);
                     }
                 } else {
                     Log.d("item", "Error: " + e.getMessage());

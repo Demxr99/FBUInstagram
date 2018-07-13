@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.activity.MainActivity;
 import com.example.dedwards.fbu_instagram.activity.NewHomeActivity;
@@ -96,6 +97,7 @@ public class ProfileFragment extends Fragment {
 
             Glide.with(getActivity())
                     .load(url)
+                    .apply(RequestOptions.circleCropTransform())
                     .into(ivProfileImage);
         }
         populateTimeline();
