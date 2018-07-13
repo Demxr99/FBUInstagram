@@ -33,6 +33,7 @@ public class TimelineFragment extends Fragment {
     TimelineAdpater adapter;
     private SwipeRefreshLayout swipeContainer;
     Context context;
+    int skip;
 
     public TimelineFragment() {
         // Required empty public constructor
@@ -47,6 +48,7 @@ public class TimelineFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ((NewHomeActivity)getActivity()).showProgressBar();
+        skip = 20;
         // initialize the list of movies
         posts = new ArrayList<>();
         // initialize the adapter
@@ -63,6 +65,7 @@ public class TimelineFragment extends Fragment {
                 super.onScrollStateChanged(recyclerView, newState);
 
                 if (!recyclerView.canScrollVertically(1)) {
+                    ((NewHomeActivity)getActivity()).showProgressBar();
                     addTimeline();
                 }
             }
@@ -110,13 +113,37 @@ public class TimelineFragment extends Fragment {
     }
 
     public void addTimeline(){
-
+        // create new query to parse
+        final Post.Query postsQuery = new Post.Query();
+        postsQuery.orderByDescending("createdAt");
+        postsQuery.getTop().withUser();
+        // Define our query conditions
+//        postsQuery.whereEqualTo("user", ParseUser.getCurrentUser());
+        postsQuery.setSkip(skip);
+        // Execute the find asynchronously
+        postsQuery.findInBackground(new FindCallback<Post>() {
+            public void done(List<Post> itemList, ParseException e) {
+                if (e == null) {
+                    // Access the array of results here
+                    adapter.addAll(itemList);
+                    ((NewHomeActivity)getActivity()).hideProgressBar();
+                    if (itemList.size() != 0) {
+                        skip += 20;
+                    }
+                } else {
+                    Log.d("item", "Error: " + e.getMessage());
+                }
+            }
+        });
     }
 
     public void fetchTimelineAsync(int page) {
         // Send the network request to fetch the updated data
         // `client` here is an instance of Android Async HTTP
         // getHomeTimeline is an example endpoint.
+        if (skip > 20) {
+            skip -= 20;
+        }
         adapter.clear();
         populateTimeline();
         swipeContainer.setRefreshing(false);

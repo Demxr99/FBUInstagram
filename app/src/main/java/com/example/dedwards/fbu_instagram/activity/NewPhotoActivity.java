@@ -64,7 +64,13 @@ public class NewPhotoActivity extends AppCompatActivity {
                             Log.d("HomeActivity", "ParseFile has been saved");
                             user.put("profileImage", parseFile);
                             user.saveInBackground();
-                            finish();
+                            Intent intent = new Intent(NewPhotoActivity.this, NewHomeActivity.class);
+                            startActivity(intent);
+//                            Fragment mFragment = null;
+//                            mFragment = new PhotoFragment();
+//                            FragmentManager fragmentManager = getSupportFragmentManager();
+//                            fragmentManager.beginTransaction()
+//                                    .replace(R.id.your_placeholder, mFragment).commit();
                         } else{
                             e.printStackTrace();
                         }

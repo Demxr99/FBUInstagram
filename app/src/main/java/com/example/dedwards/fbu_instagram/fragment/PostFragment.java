@@ -77,6 +77,7 @@ public class PostFragment extends Fragment {
         btnPost.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                ((NewHomeActivity)getActivity()).showProgressBar();
                 final String description = etDescription.getText().toString();
                 final ParseFile parseFile = new ParseFile(photoFile);
                 parseFile.saveInBackground(new SaveCallback() {
@@ -106,8 +107,10 @@ public class PostFragment extends Fragment {
             @Override
             public void done(ParseException e) {
                 if (e == null){
+                    ((NewHomeActivity)getActivity()).hideProgressBar();
                     Log.d("HomeActivity", "Create post success!");
                 } else{
+                    ((NewHomeActivity)getActivity()).hideProgressBar();
                     Log.d("HomeActivity", "Failed to post");
                     e.printStackTrace();
                 }

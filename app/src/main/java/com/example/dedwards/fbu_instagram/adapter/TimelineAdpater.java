@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHolder>{
+public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHolder> {
 
     // list of all posts
     private List<Post> mPosts;
