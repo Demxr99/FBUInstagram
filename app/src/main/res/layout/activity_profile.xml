@@ -28,16 +28,18 @@
         android:src="@drawable/instagram_user_outline_24" />
 
     <LinearLayout
-        android:layout_width="194dp"
+        android:layout_width="199dp"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignTop="@+id/ivProfileImage"
-        android:layout_marginEnd="64dp">
+        android:layout_marginEnd="57dp">
 
         <TextView
+            android:id="@+id/tvPostCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#"
+            android:textStyle="bold"
             android:textAppearance="@android:style/TextAppearance.Medium" />
 
         <Space
@@ -46,9 +48,11 @@
             android:layout_weight="1"></Space>
 
         <TextView
+            android:id="@+id/tvFollowerCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#"
+            android:textStyle="bold"
             android:textAppearance="@android:style/TextAppearance.Medium" />
 
         <Space
@@ -57,9 +61,11 @@
             android:layout_weight="1"></Space>
 
         <TextView
+            android:id="@+id/tvFollowingCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="#"
+            android:textStyle="bold"
             android:textAppearance="@android:style/TextAppearance.Medium" />
     </LinearLayout>
 
@@ -68,8 +74,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="32dp"
-        android:layout_marginTop="63dp">
+        android:layout_marginEnd="31dp"
+        android:layout_marginTop="61dp">
 
         <TextView
             android:layout_width="wrap_content"

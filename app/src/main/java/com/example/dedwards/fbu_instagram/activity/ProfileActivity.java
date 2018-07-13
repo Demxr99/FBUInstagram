@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.request.RequestOptions;
@@ -28,6 +29,7 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -36,12 +38,17 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView ivProfileImage;
     ImageAdapter adapter;
     RecyclerView rvPosts;
+    TextView tvPostCount;
+    TextView tvFollowerCount;
+    TextView tvFollwingCount;
+
     ArrayList<Post> posts;
     ParseUser user;
     // Instance of the progress action-view
     MenuItem miActionProgressItem;
     private SwipeRefreshLayout swipeContainer;
     int skip;
+    int postCount = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,10 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
 
         skip = 20;
+        postCount = 0;
+        Random rand = new Random();
+        int value_1 = rand.nextInt(1000);
+        int value_2 = rand.nextInt(5000);
 
         user = Parcels.unwrap(getIntent().getParcelableExtra(ParseUser.class.getSimpleName()));
 
@@ -57,6 +68,9 @@ public class ProfileActivity extends AppCompatActivity {
 
         ivProfileImage = findViewById(R.id.ivProfileImage);
         rvPosts = findViewById(R.id.rvImages);
+        tvPostCount = findViewById(R.id.tvPostCount);
+        tvFollowerCount = findViewById(R.id.tvFollowerCount);
+        tvFollwingCount = findViewById(R.id.tvFollowingCount);
 
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new GridLayoutManager(this, 3));
@@ -70,6 +84,8 @@ public class ProfileActivity extends AppCompatActivity {
                     .apply(RequestOptions.circleCropTransform())
                     .into(ivProfileImage);
         }
+
+        tvPostCount = findViewById(R.id.tvPostCount);
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -101,6 +117,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        tvFollowerCount.setText(Integer.toString(value_1));
+        tvFollwingCount.setText(Integer.toString(value_2));
         populateTimeline();
     }
 
@@ -134,6 +152,7 @@ public class ProfileActivity extends AppCompatActivity {
     public void populateTimeline(){
         // create new query to parse
         final Post.Query postsQuery = new Post.Query();
+        postsQuery.orderByDescending("createdAt");
         postsQuery.getTop().withUser();
         // Define our query conditions
         postsQuery.whereEqualTo("user", user);
@@ -143,6 +162,8 @@ public class ProfileActivity extends AppCompatActivity {
                 if (e == null) {
                     // Access the array of results here
                     adapter.addAll(itemList);
+                    postCount = itemList.size();
+                    tvPostCount.setText(Integer.toString(postCount));
                     Toast.makeText(ProfileActivity.this, "Added posts to timeline", Toast.LENGTH_SHORT).show();
                     hideProgressBar();
                 } else {

@@ -53,7 +53,6 @@ public class TimelineFragment extends Fragment {
         // initialize the adapter
         adapter = new TimelineAdpater(posts);
 
-
         // resolve the recycler view and connect a layout manager and movie adapter
         rvTimeline = view.findViewById(R.id.rvTimeline);
         rvTimeline.setLayoutManager(new LinearLayoutManager(getActivity()));

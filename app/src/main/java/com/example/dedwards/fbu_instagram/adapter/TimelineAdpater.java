@@ -20,6 +20,7 @@ import com.example.dedwards.fbu_instagram.GlideApp;
 import com.example.dedwards.fbu_instagram.R;
 import com.example.dedwards.fbu_instagram.activity.CommentActivity;
 import com.example.dedwards.fbu_instagram.activity.DetailsActivity;
+import com.example.dedwards.fbu_instagram.activity.NewHomeActivity;
 import com.example.dedwards.fbu_instagram.activity.ProfileActivity;
 import com.example.dedwards.fbu_instagram.fragment.ProfileFragment;
 import com.example.dedwards.fbu_instagram.model.Like;
@@ -133,6 +134,7 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
         ImageView ivComment;
         ImageView ivDirect;
         ImageView ivSave;
+        ImageView ivOptions;
         TextView tvUsername;
         TextView tvCreatedAt;
         TextView tvLikeCount;
@@ -149,6 +151,14 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             tvLikeCount = itemView.findViewById(R.id.tvLikeCount);
+            ivOptions = itemView.findViewById(R.id.ivOptions);
+
+            ivOptions.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    ((NewHomeActivity)context).showEditDialog();
+                }
+            });
 
             ivProfileImage.setOnClickListener(new View.OnClickListener() {
                 @Override

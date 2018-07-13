@@ -3,6 +3,7 @@ package com.example.dedwards.fbu_instagram.activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -14,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.dedwards.fbu_instagram.GlideApp;
 import com.example.dedwards.fbu_instagram.R;
+import com.example.dedwards.fbu_instagram.fragment.EditNameDialogFragment;
 import com.example.dedwards.fbu_instagram.fragment.ProfileFragment;
 import com.example.dedwards.fbu_instagram.model.Like;
 import com.example.dedwards.fbu_instagram.model.Post;
@@ -39,6 +41,7 @@ public class DetailsActivity extends AppCompatActivity {
     ImageView ivComment;
     ImageView ivDirect;
     ImageView ivSave;
+    ImageView ivOptions;
     TextView tvUsername;
     TextView tvDescription;
     TextView tvCreated;
@@ -62,6 +65,7 @@ public class DetailsActivity extends AppCompatActivity {
         tvDescription = findViewById(R.id.tvDescription);
         tvCreated = findViewById(R.id.tvCreatedAt);
         tvLikeCount = findViewById(R.id.tvLikeCount);
+        ivOptions = findViewById(R.id.ivOptions);
 
         final Post post = Parcels.unwrap(getIntent().getParcelableExtra(Post.class.getSimpleName()));
         ParseUser user = post.getUser();
@@ -169,6 +173,13 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
+        ivOptions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showEditDialog();
+            }
+        });
+
         // create new query to parse
         final Like.Query postsQuery = new Like.Query();
         postsQuery.orderByDescending("createdAt");
@@ -252,5 +263,11 @@ public class DetailsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        EditNameDialogFragment editNameDialogFragment = EditNameDialogFragment.newInstance("Some Title");
+        editNameDialogFragment.show(fm, "fragment_edit_name");
     }
 }

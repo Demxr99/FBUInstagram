@@ -13,6 +13,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.FileProvider;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -22,6 +23,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.dedwards.fbu_instagram.R;
+import com.example.dedwards.fbu_instagram.fragment.EditNameDialogFragment;
 import com.example.dedwards.fbu_instagram.fragment.PhotoFragment;
 import com.example.dedwards.fbu_instagram.fragment.PostFragment;
 import com.example.dedwards.fbu_instagram.fragment.ProfileFragment;
@@ -59,6 +61,9 @@ public class NewHomeActivity extends AppCompatActivity implements PhotoFragment.
         final Fragment fragment1 = new TimelineFragment();
         final Fragment fragment2 = new PhotoFragment();
         final Fragment fragment3 = new ProfileFragment();
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.getMenu().getItem(0).setChecked(true);
@@ -187,8 +192,9 @@ public class NewHomeActivity extends AppCompatActivity implements PhotoFragment.
         return file;
     }
 
-    public void setNav(){
-        bottomNavigationView.getMenu().getItem(2).setChecked(true);
-        bottomNavigationView.getMenu().getItem(0).setChecked(false);
+    public void showEditDialog() {
+        FragmentManager fm = getSupportFragmentManager();
+        EditNameDialogFragment editNameDialogFragment = EditNameDialogFragment.newInstance("Some Title");
+        editNameDialogFragment.show(fm, "fragment_edit_name");
     }
 }

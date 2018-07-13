@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/edit_name"
+    android:layout_width="250dp" android:layout_height="250dp"
+    android:layout_gravity="center" android:orientation="vertical"
+    android:minHeight="250dp"
+    android:minWidth="250dp">
+
+    <TextView
+        android:id="@+id/menu_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Report..."
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/menu_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Copy Link"
+        android:textAppearance="@android:style/TextAppearance.Small"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/menu_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Turn On Post Notifications"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/menu_4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Share on Messenger"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/menu_5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Share on WhatsApp"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/menu_6"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Unfollow"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/menu_7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="Mute"
+        android:textColor="@color/black" />
+
+</LinearLayout>

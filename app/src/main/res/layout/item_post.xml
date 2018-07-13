@@ -108,4 +108,12 @@
         android:textStyle="bold"
         android:textAppearance="@android:style/TextAppearance.Small" />
 
+    <ImageView
+        android:id="@+id/ivOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/ivSave"
+        android:layout_alignTop="@+id/tvUsername"
+        app:srcCompat="@mipmap/media_option_button" />
+
 </RelativeLayout>
