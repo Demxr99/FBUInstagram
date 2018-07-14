@@ -43,6 +43,7 @@ public class ProfileFragment extends Fragment {
     TextView tvPostCount;
     TextView tvFollowerCount;
     TextView tvFollwingCount;
+    TextView tvName;
     ImageAdapter adapter;
     int postCount;
 
@@ -84,6 +85,7 @@ public class ProfileFragment extends Fragment {
         tvPostCount = view.findViewById(R.id.tvPostCount);
         tvFollowerCount = view.findViewById(R.id.tvFollowerCount);
         tvFollwingCount = view.findViewById(R.id.tvFollowingCount);
+        tvName = view.findViewById(R.id.tvName);
 
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new GridLayoutManager(getActivity(), 3));
@@ -123,6 +125,7 @@ public class ProfileFragment extends Fragment {
         }
         tvFollowerCount.setText(Integer.toString(value_1));
         tvFollwingCount.setText(Integer.toString(value_2));
+        tvName.setText(user.getUsername());
 
         // Lookup the swipe container view
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);

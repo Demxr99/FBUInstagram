@@ -2,6 +2,7 @@ package com.example.dedwards.fbu_instagram.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -40,6 +41,9 @@ public class MainActivity extends AppCompatActivity {
                 login(username, password);
             }
         });
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar_home);
 
         tvSignUp.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -97,6 +98,9 @@ public class DetailsActivity extends AppCompatActivity {
         } else{
             tvLikeCount.setText(Integer.toString(post.getLikes().size()));
         }
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar);
 
         ivProfileImage.setOnClickListener(new View.OnClickListener() {
             @Override

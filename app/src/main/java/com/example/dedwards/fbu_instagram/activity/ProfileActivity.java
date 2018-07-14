@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -41,6 +42,7 @@ public class ProfileActivity extends AppCompatActivity {
     TextView tvPostCount;
     TextView tvFollowerCount;
     TextView tvFollwingCount;
+    TextView tvName;
 
     ArrayList<Post> posts;
     ParseUser user;
@@ -71,6 +73,10 @@ public class ProfileActivity extends AppCompatActivity {
         tvPostCount = findViewById(R.id.tvPostCount);
         tvFollowerCount = findViewById(R.id.tvFollowerCount);
         tvFollwingCount = findViewById(R.id.tvFollowingCount);
+        tvName = findViewById(R.id.tvName);
+
+        getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        getSupportActionBar().setCustomView(R.layout.action_bar);
 
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(new GridLayoutManager(this, 3));
@@ -119,6 +125,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         tvFollowerCount.setText(Integer.toString(value_1));
         tvFollwingCount.setText(Integer.toString(value_2));
+        tvName.setText(user.getUsername());
         populateTimeline();
     }
 
