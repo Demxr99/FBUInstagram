@@ -81,8 +81,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/ivLike"
-        android:layout_below="@+id/tvLikeCount"
-        android:layout_marginTop="10dp"
+        android:layout_below="@+id/tvComments"
         android:text="TextView"
         android:textAppearance="@android:style/TextAppearance.Small" />
 
@@ -115,5 +114,15 @@
         android:layout_alignEnd="@+id/ivSave"
         android:layout_alignTop="@+id/tvUsername"
         app:srcCompat="@mipmap/media_option_button" />
+
+    <TextView
+        android:id="@+id/tvComments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/ivLike"
+        android:layout_below="@+id/tvLikeCount"
+        android:layout_marginBottom="6dp"
+        android:layout_marginTop="6dp"
+        android:text="View all comments" />
 
 </RelativeLayout>

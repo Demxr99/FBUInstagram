@@ -138,6 +138,7 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
         TextView tvUsername;
         TextView tvCreatedAt;
         TextView tvLikeCount;
+        TextView tvComments;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -152,11 +153,29 @@ public class TimelineAdpater extends RecyclerView.Adapter<TimelineAdpater.ViewHo
             tvCreatedAt = itemView.findViewById(R.id.tvCreatedAt);
             tvLikeCount = itemView.findViewById(R.id.tvLikeCount);
             ivOptions = itemView.findViewById(R.id.ivOptions);
+            tvComments = itemView.findViewById(R.id.tvComments);
 
             ivOptions.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ((NewHomeActivity)context).showEditDialog();
+                }
+            });
+
+            tvComments.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    // gets position of item in ArrayList
+                    int position = getAdapterPosition();
+                    // checks if position is valid
+                    if (position != RecyclerView.NO_POSITION) {
+                        // get the post at position
+                        Post post = mPosts.get(position);
+
+                        Intent intent = new Intent(context, CommentActivity.class);
+                        intent.putExtra(Post.class.getSimpleName(), Parcels.wrap(post));
+                        context.startActivity(intent);
+                    }
                 }
             });
 

@@ -12,8 +12,8 @@
         android:layout_height="38dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="98dp"
-        android:layout_marginTop="127dp"
+        android:layout_marginEnd="97dp"
+        android:layout_marginTop="129dp"
         android:background="@drawable/round_button"
         android:text="Log out" />
 
